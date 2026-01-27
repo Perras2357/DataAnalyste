@@ -33,10 +33,37 @@ for i = 1:N
     indexMap.(key) = i;
 end
 
-txt = cell(1, N);
+% structure de tableaux variant
+outLinks = cell(N,1);
+
+%on construit le dictionnaire fichier1(pointeur) -> fichier2(pointé)
 for i = 1:N
-  txt{i} = fileread(fullfile(data_dir, files{i}));
+
+    %on charge tous les fichiers d'un repertoire
+    contenu = fileread(fullfile(data_dir, files{i}));
+
+     %on récupère les noms des fichiers pointés
+    raw = regexp(contenu, '\[pointeur\]\(([^)]+)\)', 'tokens');
+    if isempty(raw)
+        outLinks{i} = [];
+        continue;
+    end
+
+    targets = [raw{:}];             %liste des fichiers pointés
+    idx = [];
+
+    %on parcours le contenu de la liste de fichiers
+    for k = 1:numel(targets)
+        t = strtrim(targets{k});  % on enlève espaces
+
+        % on vérifie si chaque fichier pointé existe dans le tableau d'indexation
+        if isfield(indexMap, t)
+            idx(end+1) = indexMap.(t); %#ok<AGROW>
+        end
+    end
+
+    outLinks{i} = unique(idx);    %on ne considère pas deux fois le même fichier pointé
 end
 
-txt
+outLinks
 
