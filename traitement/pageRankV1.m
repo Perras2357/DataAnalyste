@@ -58,7 +58,7 @@ for i = 1:N
 
         % on vérifie si chaque fichier pointé existe dans le tableau d'indexation
         if isfield(indexMap, t)
-            idx(end+1) = indexMap.(t); %#ok<AGROW>
+            idx(end+1) = indexMap.(t);
         end
     end
 
@@ -66,4 +66,23 @@ for i = 1:N
 end
 
 outLinks
+
+% Construction de la matrice de transition
+% M_transition(i,j) : probabilité d’aller vers le fichier i quand on est sur j
+M_transition = zeros(N,N);
+
+for j = 1:N
+  %index des fichiers pointés par le fichier j
+  index_dest = outLinks{j}
+
+  %nombre de liens sortants du fichier j
+  k = numel(index_dest)
+
+  if k == 0             % cas où le fichier ne pointe sur aucun autre
+    % On considère que le fichier j pointe sur tous les fichiers
+    M_transition(:,j) = 1/N;
+  else
+    M_transition(index_dest,j) = 1/k; %j pointe sur k fichier
+  end
+end
 
