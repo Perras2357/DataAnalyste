@@ -65,7 +65,6 @@ for i = 1:N
     outLinks{i} = unique(idx);    %on ne considère pas deux fois le même fichier pointé
 end
 
-outLinks
 
 % Construction de la matrice de transition
 % M_transition(i,j) : probabilité d’aller vers le fichier i quand on est sur j
@@ -73,10 +72,10 @@ M_transition = zeros(N,N);
 
 for j = 1:N
   %index des fichiers pointés par le fichier j
-  index_dest = outLinks{j}
+  index_dest = outLinks{j};
 
   %nombre de liens sortants du fichier j
-  k = numel(index_dest)
+  k = numel(index_dest);
 
   if k == 0             % cas où le fichier ne pointe sur aucun autre
     % On considère que le fichier j pointe sur tous les fichiers
@@ -87,5 +86,9 @@ for j = 1:N
 end
 
 % construction de la matrice de google
-M = d * M_transition + (1-d) * 1/N
+M_google = (d * M_transition) + ((1-d)/N);
 
+%construction du vecteur propre
+[E,D] = eig(M_google);
+t = E(:,1)/sum(E(:,1));
+sum(t)
