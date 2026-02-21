@@ -103,18 +103,3 @@ r = r / sum(r);
 
 files(bestIndex)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -15,7 +15,6 @@ d = 0.85;
 
 % 2) Construire outLinks + indexMap
 [outLinks, indexMap] = construireOutLinks(files, contents);
-[outLinks, indexMap] = construireOutLinks(files, contents);
 
 
 % 3) Matrice de transition
@@ -27,14 +26,13 @@ G = construireMatriceGoogle(M, d);
 % 5) PageRank
 r = calculerPageRank(G);
 
-
-
-% 7) Recherche + tri
+% 6) Recherche + tri
 query = input('Mot recherché (vide pour ignorer) : ', 's');
 if ~isempty(strtrim(query))
     ranked = rechercherEtClasser(files, contents, r, query);
+
     if isempty(ranked)
-        disp("Aucun fichier ne contient ce mot.");
+        disp("Aucun fichier ne correspond à cette requête.");
     else
         disp("=== Fichiers contenant le mot recherché classé ===");
         for k = 1:numel(ranked)
@@ -43,4 +41,5 @@ if ~isempty(strtrim(query))
         end
     end
 end
+
 
