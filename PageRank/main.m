@@ -2,11 +2,11 @@
 clear; clc;
 
 addpath('src'); % Ajoute le dossier contenant les fonctions
--
--% récupération de l'emplacement du main et fonction récupère le repertoire data
--currentFile = mfilename('fullpath');
--[projectRoot,~,~] = fileparts(currentFile);
--data_dir = fullfile(projectRoot, 'data');
+
+% récupération de l'emplacement du main et fonction récupère le repertoire data
+currentFile = mfilename('fullpath');
+[projectRoot,~,~] = fileparts(currentFile);
+data_dir = fullfile(projectRoot, 'data');
 
 d = 0.85;
 

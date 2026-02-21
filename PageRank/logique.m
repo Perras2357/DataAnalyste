@@ -1,7 +1,10 @@
 %% Importation du fichier txt
 
 %Repertoire où se trouve les fichiers
-data_dir = "../data/";
+currentFile = mfilename('fullpath');
+[projectRoot,~,~] = fileparts(currentFile);
+data_dir = fullfile(projectRoot, 'data');
+
 d = 0.85; % Damping google
 
 %Recherche des fichiers ayant pour extension .txt
@@ -86,32 +89,17 @@ for j = 1:N
 end
 
 % construction de la matrice de google
-M_google = (d * M_transition) + ((1-d)/N);
+M_google = (d * M_transition) + ((1-d)/N)
 
 %construction du vecteur propre
 [E,D] = eig(M_google);
 
 % indice de la valeur propre ≈ 1
-lambda = diag(D);
+lambda = diag(D)
 [~, idx] = min(abs(lambda - 1));
 r = E(:, idx);
 r = r / sum(r);
-[maxScore, bestIndex] = max(r);
+[maxScore, bestIndex] = max(r)
 
 files(bestIndex)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
