@@ -18,6 +18,7 @@ Implémenter le moteur de recherche de **Google** utilisant :
         rechercherEtClasser.m
         extraireFragmant.m
         tokeniserTexte.m
+        chargerStopWords.m
     data/           <---- Repertoire à créer pour mettre les fichiers avec pour extension txt
     main.m          <---- Fichier principal
     logique.m       <---- Fichier d'établissement de la logique de calculs
@@ -38,6 +39,8 @@ sequenceDiagram
     participant G as tokeniserTexte
     participant H as rechercherEtClasser
     participant I as extraireFragmant
+    participant J as chargerStopWords
+
 
 
     A->>B: appel(data_dir)
@@ -54,8 +57,11 @@ sequenceDiagram
     G-->>H: retourn(docTokens)
     A->>H: appel(files, contents, r, query)
     H-->>A: retourn([ranked, matchCount, bestMatchedTokens])
-    A->>I: appel(contents{i}, matchedTokensDoc, 17)
+    A->>I: appel(contents{i}, matchedTokensDoc, NUMBER)
     I-->>A: retourn(texte)
+    A->>J: appel(stopWordsFile)
+    I-->>A: retourn(stopWords)
+
 ```
 
 
@@ -93,7 +99,16 @@ b. PageRank (tie-break)
 
 Pour le meilleur résultat :
 - Extraction d’une fenêtre de texte
-- Mise en évidence des mots trouvés :
+- Mise en évidence des mots trouvés
+
+5) 
+- suppression des mots grammaticaux non discriminants 
+- amélioration du ratio signal/bruit 
+
+- Impact : 
+    * réduction des faux ex aequo 
+
+    * meilleure précision sur requêtes naturelles
 
 
 

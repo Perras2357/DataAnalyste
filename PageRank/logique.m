@@ -99,6 +99,7 @@ lambda = diag(D);
 [~, idx] = min(abs(lambda - 1));
 r = E(:, idx);
 r = r / sum(r);
+
 [maxScore, bestIndex] = max(r);
 
 files(bestIndex);
