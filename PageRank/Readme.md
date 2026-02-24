@@ -101,7 +101,7 @@ Pour le meilleur résultat :
 - Extraction d’une fenêtre de texte
 - Mise en évidence des mots trouvés
 
-5) 
+5) Filtrage des stop words 
 - suppression des mots grammaticaux non discriminants 
 - amélioration du ratio signal/bruit 
 
