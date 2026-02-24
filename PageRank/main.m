@@ -26,22 +26,27 @@ G = construireMatriceGoogle(M, d);
 % 5) PageRank
 r = calculerPageRank(G);
 
-% 6) Recherche + tri
+% 6) Chargement des mots indésirables (stop words)
+%    Le fichier stopwords.txt doit se trouver à la racine du projet.
+stopWordsFile = fullfile(projectRoot, 'stopwords.txt');
+stopWords = chargerStopWords(stopWordsFile);
+
+% 7) Recherche + tri
 query = input('Mot recherché (vide pour ignorer) : ', 's');
 
 if ~isempty(strtrim(query))
-    [ranked, matchCount, bestMatchedTokens] = rechercherEtClasser(files, contents, r, query);
+    [ranked, matchCount, bestMatchedTokens] = rechercherEtClasser(files, contents, r, query, stopWords);
 
     if isempty(ranked)
         disp("Aucun fichier ne correspond à cette requête.");
     else
-        qTokens = unique(tokeniserTexte(query));
-        disp("=== Fichiers contenant les mots recherchés classés ===");
+        qTokens = unique(tokeniserTexte(query, stopWords));
+        disp("=== Résultats (triés par nb mots matchés puis PageRank) ===");
         for k = 1:numel(ranked)
             i = ranked(k);
 
             % tokens du doc
-            docTokens = unique(tokeniserTexte(contents{i}));
+            docTokens = unique(tokeniserTexte(contents{i}, stopWords));
 
             % mots de la requête présents dans ce doc
             present = ismember(qTokens, docTokens);
