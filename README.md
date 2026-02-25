@@ -1,7 +1,5 @@
 # ACP
 ACP : L’économie du secteur des technologies de l’information
-# ACP – Secteur des technologies de l'information
-
 Ce script réalise une Analyse en Composantes Principales (ACP)
 à partir du fichier `techno_info.txt`.
 
